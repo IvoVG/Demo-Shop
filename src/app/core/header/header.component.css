@@ -1,6 +1,6 @@
 header {
-    background: rgb(0, 128, 182);
-    background: linear-gradient(0deg, rgba(0, 128, 182, 1) 0%, rgb(1, 66, 94) 35%, rgba(0, 212, 255, 1) 100%);
+    background: rgb(0, 182, 0);
+    background: linear-gradient(0deg, rgb(0, 158, 182) 0%, rgb(1, 66, 94) 35%, rgb(68, 255, 0) 100%);
   }
   
   header ul {
