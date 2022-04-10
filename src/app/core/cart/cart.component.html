@@ -1,0 +1,228 @@
+
+<div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4><b>Shopping Cart</b></h4>
+                    </div>
+                    <div class="col align-self-center text-right text-muted">3 items</div>
+                </div>
+            </div>
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
+                    <div class="col">
+                        <div class="row text-muted">Shirt</div>
+                        <div class="row">Cotton T-shirt</div>
+                    </div>
+                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/ba3tvGm.jpg"></div>
+                    <div class="col">
+                        <div class="row text-muted">Shirt</div>
+                        <div class="row">Cotton T-shirt</div>
+                    </div>
+                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+                </div>
+            </div>
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg"></div>
+                    <div class="col">
+                        <div class="row text-muted">Shirt</div>
+                        <div class="row">Cotton T-shirt</div>
+                    </div>
+                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+                </div>
+            </div>
+            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h5><b>Summary</b></h5>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS 3</div>
+                <div class="col text-right">&euro; 132.00</div>
+            </div>
+            <form>
+                <p>SHIPPING</p> <select>
+                    <option class="text-muted">Standard-Delivery- &euro;5.00</option>
+                </select>
+                <p>GIVE CODE</p> <input id="code" placeholder="Enter your code">
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right">&euro; 137.00</div>
+            </div> <button class="btn" routerLink="/checkout">CHECKOUT</button>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function()
+{
+"use strict";
+
+var menuActive = false;
+var header = $('.header');
+setHeader();
+initCustomDropdown();
+initPageMenu();
+
+function setHeader()
+{
+
+if(window.innerWidth > 991 && menuActive)
+{
+closeMenu();
+}
+}
+
+function initCustomDropdown()
+{
+if($('.custom_dropdown_placeholder').length && $('.custom_list').length)
+{
+var placeholder = $('.custom_dropdown_placeholder');
+var list = $('.custom_list');
+}
+
+placeholder.on('click', function (ev)
+{
+if(list.hasClass('active'))
+{
+list.removeClass('active');
+}
+else
+{
+list.addClass('active');
+}
+
+$(document).one('click', function closeForm(e)
+{
+if($(e.target).hasClass('clc'))
+{
+$(document).one('click', closeForm);
+}
+else
+{
+list.removeClass('active');
+}
+});
+
+});
+
+$('.custom_list a').on('click', function (ev)
+{
+ev.preventDefault();
+var index = $(this).parent().index();
+
+placeholder.text( $(this).text() ).css('opacity', '1');
+
+if(list.hasClass('active'))
+{
+list.removeClass('active');
+}
+else
+{
+list.addClass('active');
+}
+});
+
+
+$('select').on('change', function (e)
+{
+placeholder.text(this.value);
+
+$(this).animate({width: placeholder.width() + 'px' });
+});
+}
+
+/*
+
+4. Init Page Menu
+
+*/
+
+function initPageMenu()
+{
+if($('.page_menu').length && $('.page_menu_content').length)
+{
+var menu = $('.page_menu');
+var menuContent = $('.page_menu_content');
+var menuTrigger = $('.menu_trigger');
+
+//Open / close page menu
+menuTrigger.on('click', function()
+{
+if(!menuActive)
+{
+openMenu();
+}
+else
+{
+closeMenu();
+}
+});
+
+//Handle page menu
+if($('.page_menu_item').length)
+{
+var items = $('.page_menu_item');
+items.each(function()
+{
+var item = $(this);
+if(item.hasClass("has-children"))
+{
+item.on('click', function(evt)
+{
+evt.preventDefault();
+evt.stopPropagation();
+var subItem = item.find('> ul');
+if(subItem.hasClass('active'))
+{
+subItem.toggleClass('active');
+TweenMax.to(subItem, 0.3, {height:0});
+}
+else
+{
+subItem.toggleClass('active');
+TweenMax.set(subItem, {height:"auto"});
+TweenMax.from(subItem, 0.3, {height:0});
+}
+});
+}
+});
+}
+}
+}
+
+function openMenu()
+{
+var menu = $('.page_menu');
+var menuContent = $('.page_menu_content');
+TweenMax.set(menuContent, {height:"auto"});
+TweenMax.from(menuContent, 0.3, {height:0});
+menuActive = true;
+}
+
+function closeMenu()
+{
+var menu = $('.page_menu');
+var menuContent = $('.page_menu_content');
+TweenMax.to(menuContent, 0.3, {height:0});
+menuActive = false;
+}
+
+
+});
+</script>
