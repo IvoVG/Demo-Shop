@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { User } from '../interfaces/user';
+import { UserService } from '../user.service';
 
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
-})
-export class HomeComponent implements OnInit {
+@Component({ templateUrl: 'home.component.html' })
 
-  constructor() { }
+export class HomeComponent {
+  loading = false;
+  users: User[];
 
-  ngOnInit(): void {
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+      this.loading = true;
+      this.userService.getAll().pipe(first()).subscribe(users => {
+          this.loading = false;
+          this.users = users;
+      });
   }
-  slideConfig = {"slidesToShow": 1, "slidesToScroll": 1} ;
 }

@@ -15,6 +15,7 @@ import { CartComponent } from './core/cart/cart.component';
 import { CheckoutComponent } from './core/checkout/checkout.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { LogoutComponent } from './user/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './user/register/register.component';
     CartComponent,
     CheckoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
